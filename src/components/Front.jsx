@@ -1,6 +1,6 @@
 import WeatherBox from './WeatherBox'
 import LocationBox from './LocationBox'
-import Wrapper from './wrapper'
+import Wrapper from './Wrapper'
 
 const Front = () => {
   return (
