@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+.light {
+  --color-1: #9bd7fc;
+  --color-2: #b4e1fd;
+  --color-3: #003758;
+}
+
+.dark{
+  --color-1: #141414;
+  --color-2: #262626;
+  --color-3: #ffffff;
+}
+
+*{
+  color: var(--color-3);
+  transition: all 0.19s ease;
+  font-family: "Inter", sans-serif;
+}
+
+body{
+  background-color: var(--color-1);
+}
+
+.material-symbols-rounded{
+  font-size: 1.25em;
+}
