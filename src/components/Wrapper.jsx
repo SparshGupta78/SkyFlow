@@ -1,9 +1,39 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { WeatherContext } from "../contexts/WeatherContext/WeatherContext"
 
 const Wrapper = () => {
 
   const {weather, setWeather} = useContext(WeatherContext)
+
+  const [hour, setHour] = useState()
+  const [min, setMin] = useState()
+  const [date, setDate] = useState()
+  const [mon, setMon] = useState()
+  const [year, setYear] = useState()
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMin(new Date().getMinutes().toString())
+    }, 1000)
+  }, [])
+
+  useEffect(() => {
+    setHour(new Date().getHours().toString())
+  }, [min])
+
+  useEffect(() => {
+    setDate(new Date().getDate().toString())
+  }, [hour])
+
+  useEffect(() => {
+    setMon(month(new Date().getMonth()).toString())
+  }, [date])
+
+  useEffect(() => {
+    setYear(new Date().getFullYear().toString())
+  }, [mon])
+
+  const month = (m) => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][parseInt(m, 10) - 1]
 
   return (
     <div className="w-full flex flex-wrap flex-col gap-4 md:gap-6 md:flex-row">
@@ -114,14 +144,15 @@ const Wrapper = () => {
         <div className="border-3 border-[var(--color-2)] rounded-md min-w-60 flex flex-col justify-between grow-1 h-fit">
           <div className="p-2.5 flex flex-col gap-1">
             <div className="text-4xl">
-              18:21
+              {(hour?.length < 2) ? '0' + hour : hour || '--'}:{(min?.length < 2) ? '0' + min : min || '--'}
             </div>
             <div className="text-sm">
-              September 27, 2025
+              {mon || '--'} {date || '--'}, {year || '----'}
             </div>
           </div>
           <div className="bg-[var(--color-2)] rounded-t-sm px-2 pt-2.5 pb-1.5 text-xs">
-            Last Updated at September 27, 2025 18:15
+            Last Updated at {month(weather?.current?.last_updated?.split(' ')[0].split('-')[1] || '--')} {weather?.current?.last_updated?.split(' ')[0].split('-')[2] || '--'}, {weather?.current?.last_updated?.split(' ')[0].split('-')[0] || '--'} {weather?.current?.last_updated?.split(' ')[1] || '--:--'}
+            <div className="text-xs italic opacity-70">(According to the location)</div>
           </div>
         </div>
       </div>
